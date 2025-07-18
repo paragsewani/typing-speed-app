@@ -3,9 +3,9 @@ const router = express.Router();
 const User = require("../models/User");
 const auth = require("../middleware/authMiddleware");
 
-// Save new WPM, keep last 5
+
 router.post("/save", auth, async (req, res) => {
-  const userId = req.userId; // ✅ Use correct variable
+  const userId = req.userId; 
   const { wpm } = req.body;
 
   try {
@@ -19,14 +19,14 @@ router.post("/save", auth, async (req, res) => {
     await user.save();
     res.json({ message: "WPM saved", wpmHistory: user.wpmHistory });
   } catch (err) {
-    console.error("Save WPM Error:", err); // ✅ Debug line
+    console.error("Save WPM Error:", err); 
     res.status(500).json({ error: "Server error" });
   }
 });
 
 // Fetch latest WPMs
 router.get("/latest", auth, async (req, res) => {
-  const userId = req.userId; // ✅ Use correct variable
+  const userId = req.userId; 
 
   try {
     const user = await User.findById(userId);
@@ -34,7 +34,7 @@ router.get("/latest", auth, async (req, res) => {
 
     res.json(user.wpmHistory);
   } catch (err) {
-    console.error("Fetch WPM Error:", err); // ✅ Debug line
+    console.error("Fetch WPM Error:", err); 
     res.status(500).json({ error: "Server error" });
   }
 });
